@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        BUILD_FILE_NAME = index.html
+        BUILD_FILE_NAME = 'index.html'
     }
 
     stages {
