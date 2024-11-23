@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         BUILD_FILE_NAME = 'index.html'
+        NETLIFY_SITE_ID = '4115a522-c293-46db-8d47-15d8987b0178'
     }
 
     stages {
@@ -95,6 +96,7 @@ pipeline {
                 sh '''
                     npm install netlify-cli
                     node_modules/.bin/netlify --version
+                    echo "Deploying to production. Site ID: $NETLIFY_SITE_ID"
                 '''
             }
         }
