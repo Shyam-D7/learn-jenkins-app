@@ -5,6 +5,7 @@ pipeline {
         BUILD_FILE_NAME = 'index.html'
         NETLIFY_SITE_ID = '4115a522-c293-46db-8d47-15d8987b0178'
         NETLIFY_AUTH_TOKEN = credentials('netlify-token')
+        REACT_APP_VERSION = '1.2.3'
     }
 
     stages {
@@ -83,28 +84,6 @@ pipeline {
             }
         }
 
-        // stage('Deploy staging') {
-        //     agent {
-        //         docker {
-        //             image 'node:18-alpine'
-        //             reuseNode true
-        //         }
-        //     }
-        //     steps {
-        //         sh '''
-        //             npm install netlify-cli node-jq
-        //             node_modules/.bin/netlify --version
-        //             echo "Deploying to staging. Site ID: $NETLIFY_SITE_ID"
-        //             node_modules/.bin/netlify status
-        //             node_modules/.bin/netlify deploy --dir=build --json > deploy-output.json
-        //         '''
-        //         script {
-        //             env.STAGING_URL = sh(script: 'node_modules/.bin/node-jq -r ".deploy_url" deploy-output.json', returnStdout: true)
-        //         }
-        //     }
-            
-        // }
-
         stage('Deploy Staging') {
             agent {
                 docker {
@@ -146,14 +125,6 @@ pipeline {
                 }
             }
         } 
-
-        stage('Approval') {
-            steps {
-                timeout(time: 15, unit: 'SECONDS') {
-                    input message: 'Ready to deploy?', ok: 'Yes, deploy ...'
-                }
-            }
-        }
 
         stage('Deploy Prod') {
             agent {
