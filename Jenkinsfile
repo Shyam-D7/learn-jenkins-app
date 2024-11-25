@@ -110,7 +110,7 @@ pipeline {
             }
             steps {
 
-                timeout(time: 15, units: 'SECONDS') {
+                timeout(time: 15, unit: 'SECONDS') {
 
                     input message: 'Ready to deploy?', ok: 'Yes, deploy'
                     sh '''
